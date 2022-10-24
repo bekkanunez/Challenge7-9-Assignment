@@ -2,6 +2,9 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 
 const generateReadme = ({ title, installation, usage, contributing, tests, license, github, email }) =>
+
+
+
 `# ${title}
 
 ![${license}](${licenseLink})
@@ -39,57 +42,58 @@ ${email}`;
 inquirer
   .prompt([
     {
-      type: "input",
-      message: "What is the title of your project?",
-      name: "title",
+      type: 'input',
+      message: 'What is the title of your project?',
+      name: 'title',
     },
     {
-      type: "input",
-      message: "Enter the description:",
-      name: "description",
+      type: 'input',
+      message: 'Enter the description:',
+      name: 'description',
     },
     {
-        type: "input",
-        message: "Enter your installation instructions:",
-        name: "installation",
+        type: 'input',
+        message: 'Enter your installation instructions:',
+        name: 'installation',
     },
     {
-        type: "input",
-        message: "Enter the usage information:",
-        name: "usage",
+        type: 'input',
+        message: 'Enter the usage information:',
+        name: 'usage',
     },
     {
-        type: "input",
-        message: "Enter the contribution guidelines:",
-        name: "contributing",
+        type: 'input',
+        message: 'Enter the contribution guidelines:',
+        name: 'contributing',
     },
     {
-        type: "input",
-        message: "Enter the test instructions",
-        name: "tests",
+        type: 'input',
+        message: 'Enter the test instructions',
+        name: 'tests',
       },
     {
-      type: "list",
-      message: "Choose a license from the following:",
-      name: "license",
-      choices: ["MIT", "Apache License 2.0", "GNU General Public License v3.0"],
+      type: 'list',
+      message: 'Choose a license from the following:',
+      name: 'license',
+      choices: ['MIT', 'Apache License 2.0', 'GNU General Public License v3.0'],
     },
     {
-        type: "input",
-        message: "What is your github username?",
-        name: "github",
+        type: 'input',
+        message: 'What is your github username?',
+        name: 'github',
       },
       {
-        type: "input",
-        message: "What is your email address?",
-        name: "email",
+        type: 'input',
+        message: 'What is your email address?',
+        name: 'email',
       },
-
   ])
 
 
   .then((answers) => {
-    const licenseLink = choices(answers.license);
+    console.log(answers.license)
+
+let licenseLink = answers.license
 
   let mitBlue = 'https://img.shields.io/badge/license-MIT-blue'
   let apache = 'https://img.shields.io/badge/license-Apache_2.0-orange'
@@ -102,14 +106,14 @@ inquirer
   } else (licenseLink === 'GNU General Public License v3.0') 
     console.log(gnu);
   
-})
+
 
   let mitNotice = "Copyright <YEAR> <COPYRIGHT HOLDER>. Licensed under the MIT license."
   let apacheNotice = "Copyright [yyyy] [name of copyright owner] Licensed under the Apache License, Version 2.0 (the 'License')"
   let gnuNotice = "Copyright (C) <year>  <name of author> Licensed under the GNU v3.0 General Public License, see <https://www.gnu.org/licenses/>."
 
-.then((answers) => {  
-const licenseNotice = choices(answers.license);
+
+let licenseNotice = answers.license
 
 
 if (licenseNotice === 'MIT') {
