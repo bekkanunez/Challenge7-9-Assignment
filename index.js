@@ -1,44 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const generateReadme = ({ title, description, installation, usage, contributing, tests, license, github, email }) =>
-
-`# ${title}
-
-![${license}](${licenseLink})
-
-## Description
-${description}
-
-## Table of Contents
-
-* ### [Installation](#Installation)
-* ### [Usage](#Usage)
-* ### [License](#License)
-* ### [Contributing](#Contributing)
-* ### [Tests](#Tests)
-* ### [Questions](#Questions)
-
-
-## Installation
-${installation}
-
-## Usage
-${usage}
-
-## License
-${licenseNotice}
-
-## Contributing
-${contributing}
-
-## Tests
-${tests}
-
-## Questions
-If you have any questions, feel free to reach out via [GitHub](https://gitub.com/${github}) or ${email}`;
-
-
 inquirer
   .prompt([
     {
@@ -125,10 +87,11 @@ if (licenseNotice === 'MIT') {
 
 })
 
-.then((answers) => {
-    const readmePage = generateReadme(answers);
 
-    fs.writeFile('README.md', readmePage, (err) =>
-      err ? console.log(err) : console.log('Successfully created README!')
-    );
-  });  
+readME ()
+.then((data) => {
+
+    fs.writeFile('README.md', generateMarkdown(data), (err) => err ? console.log(err) : console.log('Successfully created README!')
+    )
+})
+
