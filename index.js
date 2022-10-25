@@ -1,13 +1,14 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const generateReadme = ({ title, installation, usage, contributing, tests, license, github, email }) =>
-
-
+const generateReadme = ({ title, description, installation, usage, contributing, tests, license, github, email }) =>
 
 `# ${title}
 
 ![${license}](${licenseLink})
+
+## Description
+${description}
 
 ## Table of Contents
 
@@ -35,8 +36,7 @@ ${contributing}
 ${tests}
 
 ## Questions
-[GitHub](https://gitub.com/${github})
-${email}`;
+If you have any questions, feel free to reach out via [GitHub](https://gitub.com/${github}) or ${email}`;
 
 
 inquirer
@@ -103,7 +103,7 @@ let licenseLink = answers.license
   console.log(mitBlue);
   } else if (licenseLink === 'Apache License 2.0') {
     console.log(apache);
-  } else (licenseLink === 'GNU General Public License v3.0') 
+  } else if (licenseLink === 'GNU General Public License v3.0') 
     console.log(gnu);
   
 
@@ -120,7 +120,7 @@ if (licenseNotice === 'MIT') {
     console.log(mitNotice);   
 } else if (licenseNotice === 'Apache License 2.0') {
     console.log(apacheNotice);
-} else (licenseNotice === 'GNU General Public License v3.0') 
+} else if (licenseNotice === 'GNU General Public License v3.0') 
     console.log(gnuNotice);
 
 })
