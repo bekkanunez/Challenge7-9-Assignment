@@ -53,45 +53,85 @@ inquirer
 
 
   .then((answers) => {
-    console.log(answers.license)
+    console.log(answers)
 
-let licenseLink = answers.license
+fs.writeFile('README.md', generateMarkdown(answers), (err) => err ? console.log(err) : console.log('Successfully created README!'))
+})
 
-  let mitBlue = 'https://img.shields.io/badge/license-MIT-blue'
-  let apache = 'https://img.shields.io/badge/license-Apache_2.0-orange'
-  let gnu = 'https://img.shields.io/badge/license-GNU_v3.0-brightgreen'
- 
-  if (licenseLink === 'MIT') {
-  console.log(mitBlue);
-  } else if (licenseLink === 'Apache License 2.0') {
-    console.log(apache);
-  } else if (licenseLink === 'GNU General Public License v3.0') 
-    console.log(gnu);
+function getlicensebadge (answers) {   
+
+    let mitBlue = 'https://img.shields.io/badge/license-MIT-blue'
+    let apache = 'https://img.shields.io/badge/license-Apache_2.0-orange'
+    let gnu = 'https://img.shields.io/badge/license-GNU_v3.0-brightgreen'
   
+    let licenseLink = answers.license
+   
+    if (licenseLink === 'MIT') {
+    return mitBlue;
+    } else if (licenseLink === 'Apache License 2.0') {
+      return apache;
+    } else if (licenseLink === 'GNU General Public License v3.0') 
+      return gnu;
+  } 
+
+function getlicenseNotice (answers) {
+
+    let mitNotice = "Copyright <YEAR> <COPYRIGHT HOLDER>. Licensed under the MIT license."
+    let apacheNotice = "Copyright [yyyy] [name of copyright owner] Licensed under the Apache License, Version 2.0 (the 'License')"
+    let gnuNotice = "Copyright (C) <year>  <name of author> Licensed under the GNU v3.0 General Public License, see <https://www.gnu.org/licenses/>."
+  
+  
+  let licenseNotice = answers.license
+  
+  
+  if (licenseNotice === 'MIT') {
+      return mitNotice;   
+  } else if (licenseNotice === 'Apache License 2.0') {
+      return apacheNotice;
+  } else if (licenseNotice === 'GNU General Public License v3.0') {
+      return gnuNotice;
+  } 
+  }
+
+function generateMarkdown(data) {
+    return `# **${data.title}**
+
+![${data.license}](${getlicensebadge(data)})
+
+## Description
+${data.description}
+
+## Table of Contents
+
+* ### [Installation](#installation)
+* ### [Usage](#usage)
+* ### [License](#license)
+* ### [Contributing](#contributing)
+* ### [Tests](#tests)
+* ### [Questions](#questions)
 
 
-  let mitNotice = "Copyright <YEAR> <COPYRIGHT HOLDER>. Licensed under the MIT license."
-  let apacheNotice = "Copyright [yyyy] [name of copyright owner] Licensed under the Apache License, Version 2.0 (the 'License')"
-  let gnuNotice = "Copyright (C) <year>  <name of author> Licensed under the GNU v3.0 General Public License, see <https://www.gnu.org/licenses/>."
+## Installation
+${data.installation}
+
+## Usage
+${data.usage}
+
+## License
+${getlicenseNotice(data)}
+
+## Contributing
+${data.contributing}
+
+## Tests
+${data.tests}
+
+## Questions
+If you have any questions, feel free to reach out via [GitHub](https://gitub.com/${data.github}) or email me to ${data.email}`
+
+};
 
 
-let licenseNotice = answers.license
 
 
-if (licenseNotice === 'MIT') {
-    console.log(mitNotice);   
-} else if (licenseNotice === 'Apache License 2.0') {
-    console.log(apacheNotice);
-} else if (licenseNotice === 'GNU General Public License v3.0') 
-    console.log(gnuNotice);
-
-})
-
-
-readME ()
-.then((data) => {
-
-    fs.writeFile('README.md', generateMarkdown(data), (err) => err ? console.log(err) : console.log('Successfully created README!')
-    )
-})
 
